@@ -19,7 +19,11 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="post-preview" v-for="edge in $page.posts.edges" :key="edge.node.id">
+          <div
+            class="post-preview"
+            v-for="edge in $page.posts.edges"
+            :key="edge.node.id"
+          >
             <g-link :to="'/post/' + edge.node.id">
               <h2 class="post-title">
                 {{ edge.node.title }}
@@ -27,14 +31,18 @@
             </g-link>
             <p class="post-meta">
               Posted by
-              <a href="#">{{ edge.node.owner ? edge.node.owner.username : '' }}</a>
+              <a href="#">{{
+                edge.node.owner ? edge.node.owner.username : ""
+              }}</a>
               on {{ edge.node.created_at }}
             </p>
             <p>
-              <a href="" v-for="tag in edge.node.tags" :key="tag.id">{{ tag.title }}</a>
+              <span v-for="tag in edge.node.tags" :key="tag.id">
+                <g-link :to="`/tag/${tag.id}`">{{ tag.title }}</g-link>
+              </span>
             </p>
           </div>
-          
+
           <hr />
           <!-- Pager -->
           <pager :info="$page.posts.pageInfo" />
@@ -70,11 +78,11 @@ query($page: Int) {
 }
 </page-query>
 <script>
-import { Pager } from 'gridsome';
+import { Pager } from "gridsome"
 export default {
   name: "HomePage",
   components: {
-    Pager
+    Pager,
   },
   metaInfo: {
     title: "Hello, world!",
